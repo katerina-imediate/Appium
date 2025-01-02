@@ -17,6 +17,9 @@ function check_hardware_acceleration() {
             HW_ACCEL_SUPPORT=$(sysctl -a | grep -E -c '(vmx|svm)')
         else
             # generic Linux hardware acceleration check
+            # /etc/wsl.conf
+[boot]
+command = /bin/bash -c 'chown root:lvm /dev/kvm && chmod 660 /dev/kvm'
             HW_ACCEL_SUPPORT=$(grep -E -c '(vmx|svm)' /proc/cpuinfo)
         fi
 
