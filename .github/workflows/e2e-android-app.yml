@@ -53,23 +53,21 @@ jobs:
             mkdir -p apps
             wget https://github.com/webdriverio/native-demo-app/releases/download/v1.0.8/android.wdio.native.app.v1.0.8.apk -P apps
 
-   
+      - name: Android emulator
+        on:
+        env:
+        ANDROID_ARCH: x86_64
+        ANDROID_TARGET: google_apis_playstore
+        API_LEVEL: 33
+        ANDROID_BUILD_TOOLS_VERSION: 33.0.2
+        ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator
+        EMULATOR_TIMEOUT: 350
+        EMULATOR_NAME: nexus
 
-      -name: Android emulator
-     env:
-       ANDROID_ARCH: x86_64
-       ANDROID_TARGET: google_apis_playstore
-       API_LEVEL: 33
-       ANDROID_BUILD_TOOLS_VERSION: 33.0.2
-       ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator
-       EMULATOR_TIMEOUT: 350
-       EMULATOR_NAME: nexus
-            
-  jobs:
-              playwright-emulator:
-                timeout-minutes: 20
-                runs-on: ubuntu-latest
-                steps:
+jobs: playwright-emulator:
+              timeout-minutes: 20
+              runs-on: ubuntu-latest
+              steps:
                   - uses: actions/checkout@v3
                     
                   - name: Add avdmanager and sdkmanager to system PATH
