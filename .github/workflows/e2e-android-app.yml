@@ -40,6 +40,7 @@ jobs:
                   - name: Launch emulator
                     run: |
                       sudo apt install qemu-kvm
+                      sudo apt-get update
                       chmod +x .github/workflows/start_emu_headless.sh
                       EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
 
