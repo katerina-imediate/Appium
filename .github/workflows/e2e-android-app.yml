@@ -39,6 +39,8 @@ jobs:
             
                   - name: Launch emulator
                     run: |
+                      sudo groupadd -r kvm
+                      sudo gpasswd -a $USER kvm
                       chmod +x .github/workflows/start_emu_headless.sh
                       EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
 
