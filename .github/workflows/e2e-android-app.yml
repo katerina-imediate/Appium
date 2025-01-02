@@ -65,7 +65,7 @@ jobs:
        EMULATOR_TIMEOUT: 350
        EMULATOR_NAME: nexus
             
-      jobs:
+  jobs:
               playwright-emulator:
                 timeout-minutes: 20
                 runs-on: ubuntu-latest
