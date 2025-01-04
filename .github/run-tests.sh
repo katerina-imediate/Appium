@@ -31,8 +31,8 @@ checkTestPrerequisites() {
 checkTestPrerequisites
 
 RESULTS_XML=test-results.xml
-echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
-ARGS=(./tests/specs/ \
+#echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
+ARGS=(tests/specs/ \
 
 --exit --timeout 10m \
 --reporter mocha-multi-reporters)
