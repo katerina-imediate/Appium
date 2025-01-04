@@ -25,6 +25,10 @@ jobs:
       - uses: actions/checkout@v3      
       - name: Build emulator
         run: |
+            echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME --abi "${ANDROID_TARGET}/${ANDROID_ARCH}" -k "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
+      - name: Launch emulator
+        run: |
+      
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
  
