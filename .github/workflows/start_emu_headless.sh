@@ -17,7 +17,7 @@ function check_hardware_acceleration() {
             HW_ACCEL_SUPPORT=$(sysctl -a | grep -E -c '(vmx|svm)')
         else
             # generic Linux hardware acceleration check
-            HW_ACCEL_SUPPORT=$(egrep '(vmx|svm)' /proc/cpuinfo)
+            HW_ACCEL_SUPPORT=$(egrep -c '(vmx|svm)' /proc/cpuinfo)
         fi
 
         if [[ $HW_ACCEL_SUPPORT == 0 ]]; then

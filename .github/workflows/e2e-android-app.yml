@@ -20,7 +20,7 @@ env:
 jobs:
 
   emulator-create:
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-24
       steps:
         - uses: actions/checkout@v3
           
@@ -40,7 +40,13 @@ jobs:
   
         - name: Launch emulator
           run: |
+            sudo groupadd -r kvm
             sudo gpasswd -a $USER kvm
+            sudo chgrp kvm /dev/kvm
+            ls -l /dev/kvm
+            sudo chgrp kvm /etc/group
+            ls -l /etc/group
+            lsmod | grep kvm
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
             
