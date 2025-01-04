@@ -100,7 +100,7 @@ jobs:
     - uses: reactivecircus/android-emulator-runner@v2
       name: e2e_api${{ matrix.apiLevel }}
       with:
-        script: bash -xe scripts/
+        run: npm run android.app
         avd-name: ${{ env.ANDROID_AVD }}
         force-avd-creation: false
         api-level: ${{ matrix.apiLevel }}
