@@ -21,7 +21,8 @@ jobs:
 
   emulator-create:
       runs-on: ubuntu-latest
-      steps:         
+      steps:   
+      - uses: actions/checkout@v3      
       - name: Launch emulator
         run: |
             yes Y | sdkmanager --licenses
