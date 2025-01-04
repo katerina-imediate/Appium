@@ -21,7 +21,7 @@ checkTestPrerequisites() {
     fi
 
     # Check if android-apidemos is installed
-    if [ ! -f "apps/android.wdio.native.app.v1.0.8.apk" ]; then
+    if [ ! -f "node_modules/android-apidemos/apks/ApiDemos-debug.apk" ]; then
         echo "Error: android-apidemos package not found"
         echo "Installing android-apidemos package..."
         npm install android-apidemos --save-dev
@@ -30,12 +30,12 @@ checkTestPrerequisites() {
 
 checkTestPrerequisites
 
-#RESULTS_XML=test-results.xml
-#echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
+RESULTS_XML=test-results.xml
+echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
 ARGS=(./tests/specs/ \
 
 --exit --timeout 10m \
---reporter mocha-multi-reporters 
+--reporter mocha-multi-reporters)
 if ! npx mocha "${ARGS[@]}"; then
   tests=$(cat "$RESULTS_XML" | xq --xpath '//tests')
  
