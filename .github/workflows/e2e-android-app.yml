@@ -42,6 +42,7 @@ jobs:
           run: |
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
+            sudo gpasswd -a $USER kvm
  
   android-app:
     runs-on: ubuntu-latest
