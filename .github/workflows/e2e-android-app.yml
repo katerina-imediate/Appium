@@ -20,7 +20,7 @@ env:
 jobs:
 
   emulator-create:
-      runs-on: ubuntu-24
+      runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
           
