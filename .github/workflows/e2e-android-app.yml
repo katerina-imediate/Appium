@@ -40,8 +40,8 @@ jobs:
   
         - name: Launch emulator
           run: |
-            sudo groupadd -r kvm
-            sudo gpasswd -a $USER kvm
+            
+           
             sudo chgrp kvm /dev/kvm
             ls -l /dev/kvm
             sudo chgrp kvm /etc/group
