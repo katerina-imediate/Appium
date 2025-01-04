@@ -84,7 +84,7 @@ jobs:
         cwd=$(pwd)
         pushd "$cwd"
         cd ~
-        appium driver install --source=local "$cwd"
+        appium driver install uiautomator2
         appium driver doctor uiautomator2
         nohup appium server \
           --port=$APPIUM_TEST_SERVER_PORT \
@@ -100,7 +100,7 @@ jobs:
     - uses: reactivecircus/android-emulator-runner@v2
       name: e2e_api${{ matrix.apiLevel }}
       with:
-        script: bash -xe scripts/run-functional-tests.sh
+        script: bash -xe scripts/
         avd-name: ${{ env.ANDROID_AVD }}
         force-avd-creation: false
         api-level: ${{ matrix.apiLevel }}
@@ -109,6 +109,7 @@ jobs:
         emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
         target: ${{ matrix.emuTag }}
         arch: ${{ matrix.arch }}
+
     - name: Save logcat output
       if: ${{ always() }}
       uses: actions/upload-artifact@master
