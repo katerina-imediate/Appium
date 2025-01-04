@@ -13,38 +13,24 @@ env:
   ANDROID_TARGET: google_apis_playstore
   API_LEVEL: 33
   ANDROID_BUILD_TOOLS_VERSION: 33.0.2
-  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator
+  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator-headless
   EMULATOR_TIMEOUT: 350
   EMULATOR_NAME: nexus
   
 jobs:
 
-  playwright-emulator:
-              runs-on: ubuntu-latest
-              steps:
-                  - uses: actions/checkout@v3
-                    
-                  - name: Add avdmanager and sdkmanager to system PATH
-                    run: |
-                        echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
-            
-                  - name: Install Sdk
-                    run: |
-                       yes Y | sdkmanager --licenses
-                       sdkmanager --install ${ANDROID_SDK_PACKAGES}
-              
-                  - name: Build emulator
-                    run: |
-                        echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME --abi "${ANDROID_TARGET}/${ANDROID_ARCH}" -k "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
-            
-                  - name: Launch emulator
-                    run: |
-                      sudo chmod g+rw /dev/kvm
-                      sudo chmod g+rw /etc/group
-                      sudo gpasswd -a $USER kvm
-                      chmod +x .github/workflows/start_emu_headless.sh
-                      EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
-
+  emulator-create:
+      runs-on: ubuntu-latest
+      steps:         
+      - name: Launch emulator
+        run: |
+            sudo $ANDROID_HOME/tools/bin/sdkmanager --update
+            $ANDROID_HOME/tools/bin/sdkmanager --install "emulator"
+            $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;google_apis;x86"
+            echo "no" | $ANDROID_HOME/tools/bin/avdmanager --verbose create avd --force --name "pixel" --device "pixel" --package "system-images;android-29;google_apis;x86" --tag "google_apis" --abi "x86"
+            $ANDROID_HOME/emulator/emulator-headless @pixel -no-boot-anim -netdelay none -no-snapshot -wipe-data -verbose -show-kernel -no-audio -gpu swiftshader_indirect -no-snapshot &> /tmp/log.txt &
+            sleep 160
+ 
   android-app:
     runs-on: ubuntu-latest
     # Src: https://hugo.alliau.me/posts/2021-05-04-migration-to-github-native-dependabot-solutions-for-auto-merge-and-action-secrets.html#share-your-secrets-with-dependabot
