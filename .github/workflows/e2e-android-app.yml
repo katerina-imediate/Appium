@@ -32,7 +32,7 @@ jobs:
           run: |
              yes Y | sdkmanager --licenses
              sdkmanager --install ${ANDROID_SDK_PACKAGES}
-             timeout:5000
+             settimeout:9000
     
         - name: Build emulator
           run: |
