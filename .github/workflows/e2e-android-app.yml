@@ -50,52 +50,37 @@ jobs:
             lsmod | grep kvm
             groups
             emulator -list-avds
-
+            sudo gpasswd -a $USER kvm
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
             adb kill-server
             adb start-server
  
-  android-app:
-    runs-on: ubuntu-latest
+ 
     # Src: https://hugo.alliau.me/posts/2021-05-04-migration-to-github-native-dependabot-solutions-for-auto-merge-and-action-secrets.html#share-your-secrets-with-dependabot
     # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
     # Otherwise, clone it normally.
-    if: |
-        github.event_name == 'pull_request' ||
-        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
-    steps:
-      - name: ⬇️ Checkout Repository
-        if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v4
-
-      - name: ⬇️ Checkout PR Repository
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v4
-        with:
-            ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
+        - name:  Setup Node.js
+          uses: actions/setup-node@v4
+          with:
             node-version-file: '.nvmrc'
 
-      - name: 🧩 Install Dependencies
-        run: |
-          npm ci
+        - name:  Install Dependencies
+          run: |
+           npm ci
 
-      - name: Check for excluded dependencies
-        id: check-deps
-        if: github.actor == 'dependabot[bot]'
-        run: |
+        - name: Check for excluded dependencies
+          id: check-deps
+          if: github.actor == 'dependabot[bot]'
+          run: |
             if echo "${{ github.event.pull_request.title }}" | grep -Eq "appium|appium-uiautomator2-driver|appium-xcuitest-driver"; then
               echo "Skipping tests due to dependency update"
               echo "::set-output name=skip::true"
             fi
 
-      - name: 📦 Download app
-        if: steps.check-deps.outputs.skip != 'true'
-        run: |
+        - name: 📦 Download app
+          if: steps.check-deps.outputs.skip != 'true'
+          run: |
             mkdir -p apps
             wget https://github.com/webdriverio/native-demo-app/releases/download/v1.0.8/android.wdio.native.app.v1.0.8.apk -P apps
                   
