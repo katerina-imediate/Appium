@@ -23,13 +23,8 @@ jobs:
       runs-on: ubuntu-latest
       steps:   
       - uses: actions/checkout@v3      
-      - name: Install Sdk
-        run: |    
-            yes Y | sdkmanager --licenses
-            sdkmanager --install ${ANDROID_SDK_PACKAGES}
-
-            - name: Build emulator
-            run: |
+      - name: Build emulator
+        run: |
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
  
