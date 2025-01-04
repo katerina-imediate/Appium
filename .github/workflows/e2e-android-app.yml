@@ -43,10 +43,11 @@ jobs:
             
            
             sudo chgrp kvm /dev/kvm
-            ls -l /dev/kvm
             sudo chgrp kvm /etc/group
+            ls -l /dev/kvm
             ls -l /etc/group
             lsmod | grep kvm
+            lscpu
             chmod +x .github/workflows/start_emu_headless.sh
             EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME .github/workflows/start_emu_headless.sh
             
