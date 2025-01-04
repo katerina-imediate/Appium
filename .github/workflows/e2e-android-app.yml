@@ -24,9 +24,10 @@ jobs:
       steps:         
       - name: Launch emulator
         run: |
-            $ANDROID_HOME/tools/bin/sdkmanager --update
-            $ANDROID_HOME/tools/bin/sdkmanager --install "emulator"
-            $ANDROID_HOME/tools/bin/sdkmanager --install "system-images;android-29;google_apis;x86"
+            sdkmanager --update
+            sdkmanager --install "emulator"
+            yes Y | sdkmanager --licenses
+            sdkmanager --install "system-images;android-29;google_apis;x86"
             echo "no" | $ANDROID_HOME/tools/bin/avdmanager --verbose create avd --force --name "pixel" --device "pixel" --package "system-images;android-29;google_apis;x86" --tag "google_apis" --abi "x86"
             $ANDROID_HOME/emulator/emulator-headless @pixel -no-boot-anim -netdelay none -no-snapshot -wipe-data -verbose -show-kernel -no-audio -gpu swiftshader_indirect -no-snapshot &> /tmp/log.txt &
             sleep 160
