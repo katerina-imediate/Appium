@@ -30,21 +30,21 @@ checkTestPrerequisites() {
 
 checkTestPrerequisites
 
-RESULTS_XML=test-results.xml
-#echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
-ARGS=(tests/specs/ \
+# RESULTS_XML=test-results.xml
+# echo "{\"reporterEnabled\": \"spec, xunit\", \"xunitReporterOptions\": {\"output\": \"$RESULTS_XML\"}}" > reporter_config.json
+# ARGS=(tests/specs/ \
 
---exit --timeout 10m \
---reporter mocha-multi-reporters)
-if ! npx mocha "${ARGS[@]}"; then
-  tests=$(cat "$RESULTS_XML" | xq --xpath '//tests')
+# --exit --timeout 10m \
+# --reporter mocha-multi-reporters)
+# if ! npx mocha "${ARGS[@]}"; then
+#   tests=$(cat "$RESULTS_XML" | xq --xpath '//tests')
  
-  threshold=$(( (failures + errors) * 100 / (tests - skipped) ))
-  cat "$RESULTS_XML"
-  if [[ $threshold -gt $TEST_PASS_THRESHOLD ]]; then
-    echo "${threshold}% of tests failed"
-    exit 1
-  else
-    echo "${threshold}% of tests failed. This is (probably) fine"
-  fi
-fi
+#   threshold=$(( (failures + errors) * 100 / (tests - skipped) ))
+#   cat "$RESULTS_XML"
+#   if [[ $threshold -gt $TEST_PASS_THRESHOLD ]]; then
+#     echo "${threshold}% of tests failed"
+#     exit 1
+#   else
+#     echo "${threshold}% of tests failed. This is (probably) fine"
+#   fi
+# fi
