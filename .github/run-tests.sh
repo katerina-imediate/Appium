@@ -21,12 +21,12 @@ checkTestPrerequisites() {
     fi
 
     # Check if android-apidemos is installed
-    if [ ! -f "node_modules/android-apidemos/apks/ApiDemos-debug.apk" ]; then
-        echo "Error: android-apidemos package not found"
-        echo "Installing android-apidemos package..."
-        npm install android-apidemos --save-dev
-    fi
-}
+#     if [ ! -f "node_modules/android-apidemos/apks/ApiDemos-debug.apk" ]; then
+#         echo "Error: android-apidemos package not found"
+#         echo "Installing android-apidemos package..."
+#         npm install android-apidemos --save-dev
+#     fi
+# }
 
 checkTestPrerequisites
 
