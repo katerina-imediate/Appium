@@ -17,6 +17,9 @@ checkTestPrerequisites() {
         echo "Please connect an Android device or start an emulator"
         echo "Current devices list:"
         adb devices
+        adb kill-server
+        adb devices
+        adb start-server
         exit 1
     fi
 
