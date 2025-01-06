@@ -1,11 +1,9 @@
-name: Functional Tests
+name: Appium Tests
 
 on:
   push:
     branches:
     - master
-
-
 
 jobs:
   test:
@@ -100,7 +98,7 @@ jobs:
     - uses: reactivecircus/android-emulator-runner@v2
       name: e2e_api${{ matrix.apiLevel }}
       with:
-        script: wdio run config/wdio.android.app.conf.ts #.github/run-tests.sh
+        run: wdio run config/wdio.android.app.conf.ts #.github/run-tests.sh
         avd-name: ${{ env.ANDROID_AVD }}
         force-avd-creation: false
         api-level: ${{ matrix.apiLevel }}
