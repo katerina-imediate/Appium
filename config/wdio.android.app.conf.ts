@@ -28,6 +28,7 @@ export const config: WebdriverIO.Config = {
             //
             // NOTE: Change this version according to the Emulator you have created on your local machine
             // "appium:platformVersion": "13.0",
+            
             "appium:orientation": "PORTRAIT",
             "appium:automationName": "UiAutomator2",
             // The path to the app
