@@ -37,7 +37,7 @@ export const config: Options.Testrunner = {
     /**
      * NOTE: This is just a place holder and will be overwritten by each specific configuration
      */
-    capabilities: [],
+    //  capabilities: [],
     //
     // ===================
     // Test Configurations
@@ -109,7 +109,28 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: [
+        [
+            "spec",
+            {
+              symbols: {
+                passed: '[PASS]',
+                failed: '[FAIL]',
+              },
+            },
+          ]
+    ],
+    
+    // [['allure', {
+    //     outputDir: 'allure-results',
+    //     disableWebdriverStepsReporting: true,
+    //     disableWebdriverScreenshotsReporting: true,
+    // }]],
+    // afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    //     if (error) {
+    //         await browser.takeScreenshot();
+    //     }
+    // },
     // Options to be passed to Mocha.
     mochaOpts: {
         ui: 'bdd',
