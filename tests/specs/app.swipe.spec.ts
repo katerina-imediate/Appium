@@ -61,7 +61,7 @@ describe('WebdriverIO and Appium, when using swiping', () => {
             await expect(SwipeScreen.logo).toBeDisplayed();
         });
     }
-
+browser.dismissAlert
     // You will find native a native swipe example below, but it is commented out because even though it looks "simple",
     // there are more details you need to know about:
     // - the device/OS
