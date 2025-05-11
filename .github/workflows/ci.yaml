@@ -74,13 +74,21 @@ jobs:
                   arch: ${{ matrix.arch }}
                   disable-animations: true
                   script: npm run android.app
-        # - run: |
-        #           cwd=$(pwd)
-        #           pushd "$cwd"
-        
-
-        # - name: 🧪 Test 
-        # - run: npm run android.app
+        - name: Publish Test Report
+          uses: ./
+          with:
+                    report-path: './ctrf/*.json'
+                    summary-report: true
+                    github-report: true
+                    failed-report: true
+                    flaky-report: true
+                    insights-report: true
+                    fail-rate-report: true
+                    flaky-rate-report: true
+                    slowest-report: true
+                    previous-results-report: true
+                    use-suite-name: true
+                    upload-artifact: true
 
         - name: 📦 Upload Logs
           uses: actions/upload-artifact@v4
