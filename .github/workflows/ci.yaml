@@ -75,8 +75,12 @@ jobs:
                   disable-animations: true
                   script: npm run android.app:action
 
-        - name: Publish Test Summary Results
-          run: npx github-actions-ctrf ctrf/ctrf-report.json
+        - name: Publish Test Report
+          uses: ctrf-io/github-test-reporter@v1
+          with:
+           report-path: './ctrf/*.json'
+           summary-report: true
+          if: always()
 
         - name: 📦 Upload Logs
           uses: actions/upload-artifact@v4
