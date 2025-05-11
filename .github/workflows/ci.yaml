@@ -73,7 +73,8 @@ jobs:
                   emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
                   arch: ${{ matrix.arch }}
                   disable-animations: true
-                  script: npm run android.app
+                  script: npm run android.app:action
+
         - name: Publish Test Report
           uses: ./
           with:
