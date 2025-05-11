@@ -73,12 +73,12 @@ jobs:
                   emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
                   arch: ${{ matrix.arch }}
                   disable-animations: true
-                  script: npm run android.app:action
+                  script: npm run all:action
 
         - name: Publish Test Report
           uses: ctrf-io/github-test-reporter@v1
           with:
-           report-path: 'ctrf/*.json'
+           report-path: './allure-results/*.json'
            test-report: true
            summary-report: true
           if: always()
